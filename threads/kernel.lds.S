@@ -18,6 +18,7 @@ SECTIONS
 	      _end_kernel_text = .; }
   .data : { *(.data)
 	    _signature = .; LONG(0xaa55aa55) }
+  .got.plt : { *(.got.plt) }
 
   /* BSS (zero-initialized data) is after everything else. */
   _start_bss = .;

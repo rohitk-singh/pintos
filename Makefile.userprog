@@ -38,10 +38,17 @@ endef
 
 $(foreach prog,$(PROGS),$(eval $(call TEMPLATE,$(prog))))
 
+# On non-Linux kernels, specify i386-elf-{ar,runlib}
+ifneq ($(shell uname -s),Linux)
+  BINUTILS = i386-elf-
+else
+  BINUTILS =
+endif
+
 libc.a: $(LIB_OBJ)
 	rm -f $@
-	ar r $@ $^
-	ranlib $@
+	$(BINUITLS)ar r $@ $^
+	$(BINUTILS)ranlib $@
 
 clean::
 	rm -f $(PROGS) $(PROGS_OBJ) $(PROGS_DEP)
