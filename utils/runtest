@@ -1,0 +1,102 @@
+#!/bin/bash
+
+function usage()
+{
+    PROG=$(basename $0)
+    printf "usage: $PROG [--gdb] test-name\n"
+    exit 2
+}
+
+function cleanup()
+{
+    popd >/dev/null 2>&1
+}
+trap cleanup EXIT
+
+# Colored text for status messages
+YELLOW="\033[33m"
+BLUE="\033[34m"
+INFO=$BLUE
+NC="\033[0m"
+
+# Run this script from the build directory or its parent
+if [ -d build ]; then
+    pushd build >/dev/null
+elif [[ $(basename $(pwd)) != build ]]; then
+    printf "No build directory found. Try running 'make'.\n" >&2
+    usage
+fi
+
+# Parse arguments. This script expects positional argument (the name of
+# the test case) and will pass any flags to the `pintos` commands.
+PINTOS_FLAGS=()
+TEST_NAME=
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -*) PINTOS_FLAGS+=("$1")
+        ;;
+        *) TEST_NAME=$1
+        ;;
+    esac
+    shift
+done
+
+# Find the path to the test. Must be a non-empty string that may either
+#  1. Point to the executable directly (build/tests/userprog/args-none)
+#  2. Be the name of the test (args-none)
+# In the latter case, look for the .ck file in the top level Pintos test
+# directory.
+TEST_NAME=${TEST_NAME/build\//}
+if [[ $TEST_NAME == "" ]]; then
+    usage
+elif [ -f $TEST_NAME ]; then
+    TEST_PATH=$TEST_NAME
+else
+    # We're in the build directory, so the Pintos tests are two dirs up.
+    TEST_DIR=../../tests
+    TEST_CK=$(find $TEST_DIR -name $TEST_NAME.ck)
+    if [[ $TEST_CK == "" ]]; then
+        printf "invalid test: $1\n"
+        exit 1
+    else
+        TEST_PATH=${TEST_CK/$TEST_DIR/tests}
+        TEST_PATH=${TEST_PATH/.ck/}
+    fi
+fi
+printf "${INFO}Test:$NC $TEST_PATH\n"
+
+# The Make command prints the steps required to create the output file.
+# Userprog and VM only use one command, which run Pintos without a
+# persistent disk. Filesys, on the other hand, creates a tmp.dsk, runs
+# Pintos twice to check for persistence, then removes the tmp.dsk.
+#
+#  1. Remove output files so the Make has something to do.
+#  2. Get a list of the commands Pintos will run.
+#  3. Remove file redirection.
+#  4. Add flags to the commands that actually call pintos.
+#  5. Pipe into `cat -v` to escape nonprintable characters.
+#  6. String the commands together and call them.
+rm -f -v $TEST_PATH.{output,errors,result}
+COMMANDS=$(make --dry-run $TEST_PATH.output)
+printf "${INFO}Commands:$NC $COMMANDS\n"
+PROCESSED_CMDS=
+while read -a line; do
+    CMD=${line[*]}
+    if [ ${line[0]} == "cd" ]; then
+        # This script uses pushd/popd to manage the cwd
+        continue
+    elif [ ${line[0]} == "pintos" ]; then
+        # Remove file redirection and add additional pintos flags
+        PINTOS_ARGS=$(echo $CMD \
+                    | cut -d '<' -f 1 \
+                    | cut -b 7-)
+        PINTOS_CMD="pintos $PINTOS_FLAGS $PINTOS_ARGS"
+        printf "${INFO}Pintos:$NC $PINTOS_CMD\n"
+        # Escape any non-printable characters
+        eval $PINTOS_CMD | cat -v
+    else
+        # Persistence-related commands
+        printf "${INFO}Command:$NC $CMD\n"
+        eval $CMD
+    fi
+done <<< "$COMMANDS"
