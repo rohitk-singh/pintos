@@ -6,6 +6,7 @@ tags
 *.o
 *.a
 *~
+*.taghl
 .DS_Store
 .PINTOS_PATH
 utils/qemu
