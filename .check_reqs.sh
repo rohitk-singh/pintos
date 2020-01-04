@@ -13,7 +13,8 @@ Need GNU binutils.
 \n"
 
 UNSUPPORTED="\
-FATAL ERROR: Unsupported OS.
+PROBLEM:
+Unsupported OS.
 \n"
 
 GCC_OUTDATED="\
