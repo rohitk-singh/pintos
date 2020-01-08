@@ -14,8 +14,12 @@ function cleanup()
 trap cleanup EXIT
 
 # Colored text for status messages
+RED="\033[31m"
+GREEN="\033[32m"
 YELLOW="\033[33m"
 BLUE="\033[34m"
+FAIL=$RED
+PASS=$GREEN
 INFO=$BLUE
 NC="\033[0m"
 
@@ -101,22 +105,37 @@ function run_test()
 {
     TEST_PATH=$1
     rm -f -v $TEST_PATH.{output,errors,result}
-    COMMANDS=$(make --dry-run $TEST_PATH.output)
+    COMMANDS=$(make --dry-run $TEST_PATH.result)
     printf "${INFO}Commands:$NC $COMMANDS\n"
+
     while read -a line; do
         CMD=${line[*]}
         if [ ${line[0]} == "cd" ]; then
             # This script uses pushd/popd to manage the cwd
             continue
         elif [ ${line[0]} == "pintos" ]; then
-            # Remove file redirection and add additional pintos flags
+            # path/to/test.output
+            OUTPUT=$(echo $CMD \
+                | cut -d '>' -f 3)
+            # Remove input, output, and error redirection
             PINTOS_ARGS=$(echo $CMD \
                         | cut -d '<' -f 1 \
                         | cut -b 7-)
-            PINTOS_CMD="pintos $PINTOS_FLAGS $PINTOS_ARGS"
+            # Add user flags, use /dev/null for input, and tee to the output file
+            PINTOS_CMD="pintos $PINTOS_FLAGS $PINTOS_ARGS < /dev/null | tee $OUTPUT"
             printf "${INFO}Pintos:$NC $PINTOS_CMD\n"
             # Escape non-printable characters that the SeaBIOS string contains
             eval $PINTOS_CMD | $SED -Ee 's/\x1b(\[(\?7l|2J)|c)//g'
+        elif [ ${line[0]} == "perl" ]; then
+            # Checking whether the test passed or failed
+            printf "${INFO}Checking:$NC $CMD\n"
+            OUTPUT=`eval $CMD`
+            if [ "$(echo $OUTPUT | head -n1 | cut -d ' ' -f 1)" = "FAIL" ]; then
+                printf "$FAIL"
+            else
+                printf "$PASS"
+            fi
+            printf "$OUTPUT$NC\n"
         else
             # Persistence-related commands
             printf "${INFO}Command:$NC $CMD\n"
