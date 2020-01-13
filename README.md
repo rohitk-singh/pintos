@@ -1,108 +1,131 @@
-# Pre-reqs
+Pintos
+======
 
-0. You should have obtained access to this starter code after submitting your team name to the Github Classroom assignment (you should receive an invite via your Github email after the TAs create the assignment).
-1. Make sure that both partners have read and write access to the repo and that it is private
+Pintos labs for EE 461S at UT Austin.
 
-# How to install pintos
+Installation
+------------
 
-0. Make sure that the dependencies have been installed:
-   - `sudo apt-get update`
-   - `sudo apt-get install qemu`
-   - `sudo apt-get install realpath`
-1. Run this command: `source install.sh`
-2. If that doesn't work, read the error messages.
+### Dependencies
+Pintos relies on some core utilities, a gcc that can compile for i386, the corresponding binary utilities, gdb, and qemu. To get these on Debian-derived Linux distributions, run the following commands:
 
-# How to check if pintos was installed correctly 
+```bash
+$ sudo apt update
+$ sudo apt install build-essential coreutils binutils gcc qemu
+```
 
-0. Run `which pintos`. It should output something like this: `/home/username/utils/pintos`
-1. Cd into the `userprog` directory 
-2. Run `make` 
-3. Run `make check` 
-   - This should take around 5-10 minutes to finish. If you get a bunch of tests being run and at the end you get 76/76 test cases failed, then your installation worked
-   - If it doesn't finish (e.g. you get stuck in an infinte loop then the installation didn't work)
-   - If you are using a newer version of Linux and have an infinite loop, please follow the instructions [here](https://github.com/justintemp/Pintos_Starter/blob/master/temp/PintosFixInfiniteLoop.md)
-     - **NOTE:** you may not have to do this ^ anymore. Trey pushed a commit that should have fixed this issue of needing to downgrade your gcc version
-   - The final output should look like this
-   
-   ![alt text](https://github.com/justintemp/Pintos_Starter/raw/master/temp/PintosInstallSucess.png "Wow I can't believe you failed all of the tests")
-   
-# How to fix the installation if it suddenly stopped working
+On macOS using [Homebrew](https://brew.sh):
 
-0. Even if you install pintos correctly, it could end up not being installed correctly later down the line if you change your directory structure (this is because your paths to the pintos files changed)
-1. You'll know if there is an issue if you can't run `make check` and if `which pintos` doesn't output anything.
-2. To fix that, you can try re-running the script
-3. If that doesn't work, take a look at the following files
-4. In your `~/.bashrc` file, there should be a line that looks something like this with the correct path to your `.PINTOS_PATH` file: `source /home/username/Pintos_Starter/.PINTOS_PATH`. You can see files that start with `.` by running `ls -al`
-5. Check the contents of the `.PINTOS_PATH` file. It should look something like this: 
+```bash
+$ brew install i386-elf-gcc i386-elf-binutils i386-elf-gdb qemu
+```
 
-`export PATH=$PATH:/home/username/Pintos_Starter/utils`
+### Setup
+Clone the starter code and change the remote to point to your team's repo.
 
-6. In your `~/.bashrc` file, there should also be something that looks like this: 
+```bash
+$ git clone https://gitlab.com/tboehm/pintos
+$ git remote rm origin
+$ git remote add origin https://github.com/DrY-Courses/os-sp20-your-team-name.git
+$ git push --set-upstream origin master
+```
 
-`alias pintos-gdb='GDBMACROS=/home/username/Pintos_Starter/misc/gdb-macros pintos-gdb'`
+### Install
+Run the installation script, which will also check that you have the required programs available. Then, check that the installation went okay.
 
-7. Run `echo $PATH`. It should have a bunch of stuff, but there should be something like this in it: 
+```bash
+$ ./install.sh  # Follow the instructions it prints
+$ echo $PINTOS  # Should point to your pintos directory
+$ echo $PATH    # Should contain the `utils` directory
+$ cd $PINTOS/userprog
+$ make check    # You should fail all of the test cases
+```
 
-`/home/username/Pintos_Starter/utils/`
+### Troubleshooting
+ - Run the install script again
+ - Make sure your bashrc is setting the `$PINTOS` and `$PATH` variables correctly
+ - Re-source your bashrc
 
-# How to run all of the pintos tests
 
-0. Go into the directory for the current project (for the first pintos project, this will be the userprog directory): `cd userprog`
-1. Build the directory with `make`
-2. Run `make check`:
-   - You'll see a lot of stuff being output, but if you're patient for about 10-30 minutes, you'll get a summary of your results at the end.
-   
-# How to get your grade
+Running Tests
+-------------
 
-0. The tests are weighted. You can see the actual grade by running `make grade`
-1. Some of the tests involve synchronization and race conditions. The grading script runs 3 times and takes the lowest of the 3 grades so make sure to run `make grade` several times and make sure you get the same grade each time
+All of these commands assume you are inside a project directory, such as `userprog` or `vm`.
 
-# How to run a single pintos test
+### All tests
+```bash
+$ make check
+```
 
-With the help of Dr. Google, I was able to write a convenient script for you all.
+### Individual tests
+```bash
+# Get into the proper project directory
+$ cd $PINTOS/userprog
+$ make
+# View the possible tests (the executables)
+$ ls build/tests/{userprog,filesys/base}
+# Run whatever tests you want
+$ runtest args-none syn-read
+```
 
-0. Open up the `run_pintos_tests.sh` file in the `userprog` directory and change it to use the tests that you want to run
-1. Simply add to (or remove from) the list of test files you see in the `TEST_FILES` variable
-2. The list of all the tests can be seen by running `ls build/tests/userprog` (all of the green executables in here are test files)
+### Previewing your grade
+```bash
+$ make grade
+# Or, if the file is up-to-date:
+$ cat build/grade
+```
 
-Things to note
-   - You can redirect anything you don't care about to /dev/null
-   - The script redirects the result of the test to /dev/null and prints the output of the test by default. You can easily change this by changing the file redirection
+Note: This script output will *not* necessarily match your grade on the lab. Some synchronization bugs may appear to be fine on your machine, but then fail when we grade the lab.
 
-# How to debug a pintos test with GDB
+Debugging
+---------
 
-To start debugging, run the `debug_pintos_tests.sh` 'script' (make sure to open it up and change the test name to the one you want to debug).
+Using [GDB](https://www.gnu.org/software/gdb/documentation/), or a GDB frontend, is mandatory. The Stanford documentation has an entire [chapter on debugging tools](https://web.stanford.edu/class/cs140/projects/pintos/pintos_10.html#SEC145), including a [section on GDB](https://web.stanford.edu/class/cs140/projects/pintos/pintos_10.html#SEC15). The techniques that these describe will be very useful for debugging your operating system, so please read through them!
 
-You'll notice that the output is paused. This is because the pintos process you just ran is waiting for you to attach your GDB debugger. 
+### Running tests
+To start debugging, use the `runtest` script as described above, adding the `--gdb` flag. For example:
 
-Open up a new terminal tab with the shortcut Ctrl-Shift-t
-   - Run the script to attach your GDB debugger to the running pintos process: `./attachGdb.sh`
-   - The script launches gdb with the `--tui` flag by default (you can remove this if you'd like)
+```bash
+$ runtest args-none --gdb
+```
 
-At this point, your terminal should have two tabs that look like the following:
+You'll notice that the output is paused. This is because the Pintos process you just ran is waiting for you to attach your GDB debugger. Open up a new terminal tab, window, or pane. Consider learning a tool like [tmux](https://github.com/tmux/tmux/) or [GNU Screen](https://www.gnu.org/software/screen/). Then, use `pintos-gdb` to attach your GDB debugger to the running Pintos process.
 
-   ![alt text](https://github.com/justintemp/Pintos_Starter/blob/master/temp/gdbdebugging_terminaltab1.png)
-    
-    - Terminal tab 1
-    
-   ![alt text](https://github.com/justintemp/Pintos_Starter/blob/master/temp/gdbdebugging_terminaltab2.png)
-    
-    - Terminal tab 2
-   
-In the second terminal tab, hit enter and you'll get a screen that looks like this:
+```bash
+# Assumes you are in the project directory.
+$ pintos-gdb build/kernel.o  # optionally add the `--tui` flag
+```
 
-   ![alt text](https://github.com/justintemp/Pintos_Starter/blob/master/temp/gdbdebugging_afterhitenter.png)
+At this point, you should see something like this:
 
-Next, enter the following commands in order to set and run to the breakpoint at main():
+<img src=".assets/debugging-1.png" alt="Debugging setup" class="center" width=600>
 
-   ![alt text](https://github.com/justintemp/Pintos_Starter/blob/master/temp/gdbdebugging_breakatmain.png)
-   
-   - **NOTE: The first command you should always run is `debugpintos` (nothing will work without running this)**
+Next, you will have to attach GDB to the Pintos process. You can do this using the `debugpintos` macro. You may also want to load symbols from the user program (test case) to allow you to step through inside the test case. Type `debugpintos` at the prompt, followed by `loadusersymbols build/tests/userprog/args-none`. You may omit the `loadusersymbols` command if you only want to debug the kernel itself, but you **must** include `debugpintos`.
 
-Then you're all set to start debugging using gdb
-   
-Tips:
+<img src=".assets/debugging-2.png" alt="Attaching and loading user symbols" class="center" width=600>
 
-   - If the screen is frozen/paused from the gdb debugging, you can continue in gdb using 'c' until the program finishes OR open a new terminal tab then run `pkill pintos`
+Now, GDB is ready to debug. If the Pintos process ever hangs and you are unable to kill it with control-C, try `pkill pintos`.
 
-For a debugging demonstration in video form, please check out Dr. Yerraballi's [video](https://utexas.app.box.com/s/2r357h16t4xc1xeg3kva69i754ie18yf).
+<img src=".assets/debugging-3.png" alt="Continuing to process_execute" class="center" width=600>
+
+Project Submission
+------------------
+
+Please read a little bit about [tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging) before starting.
+
+TODO: finish this section
+
+1. Create a new branch for this project. **If you have already created a branch for this project, omit the `-b` flag.**
+```bash
+$ git checkout -b release/project2
+```
+
+2. Tag the commit that will act as your submission.
+```bash
+$ git tag project2-submission
+```
+
+3. Push the branch and the tag to your team's GitHub repo.
+```bash
+$ git push --all
+```
