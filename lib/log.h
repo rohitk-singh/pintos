@@ -1,9 +1,8 @@
 #ifndef __LOG_H__
 #define __LOG_H__
 
-#include "lib/stdbool.h"
-#include "lib/stdbool.h"
-#include "lib/stdio.h"
+#include <stdbool.h>
+#include <stdio.h>
 
 #define LOGGING_ENABLE 0
 
