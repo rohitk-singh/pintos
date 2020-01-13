@@ -1,16 +1,15 @@
-       	     +-------------------------+
-		     |		CS 140	           |
-		     | PROJECT 4: FILE SYSTEMS |
-		     |	   DESIGN DOCUMENT     |
-		     +-------------------------+
+                      +-------------------------+
+                      |         EE 461S         |
+                      | PROJECT 2: FILE SYSTEMS |
+                      |      DESIGN DOCUMENT    |
+                      +-------------------------+
 
 ---- GROUP ----
 
 >> Fill in the names and email addresses of your group members.
 
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
+FirstName LastName <email@utexas.edu>
+FirstName LastName <email@utexas.edu>
 
 ---- PRELIMINARIES ----
 
@@ -21,8 +20,8 @@ FirstName LastName <email@domain.example>
 >> preparing your submission, other than the Pintos documentation, course
 >> text, lecture notes, and course staff.
 
-		     INDEXED AND EXTENSIBLE FILES
-		     ============================
+                     INDEXED AND EXTENSIBLE FILES
+                     ============================
 
 ---- DATA STRUCTURES ----
 
@@ -41,8 +40,8 @@ FirstName LastName <email@domain.example>
 >> structure, and what advantages and disadvantages does your
 >> structure have, compared to a multilevel index?
 
-			    SUBDIRECTORIES
-			    ==============
+                            SUBDIRECTORIES
+                            ==============
 
 ---- DATA STRUCTURES ----
 
@@ -60,14 +59,14 @@ FirstName LastName <email@domain.example>
 >> B6: Explain why you chose to represent the current directory of a
 >> process the way you did.
 
-			   SURVEY QUESTIONS
-			   ================
+                           SURVEY QUESTIONS
+                           ================
 
 Answering these questions is optional, but it will help us improve the
 course in future quarters.  Feel free to tell us anything you
-want--these questions are just to spur your thoughts.  You may also
+want -- these questions are just to spur your thoughts.  You may also
 choose to respond anonymously in the course evaluations at the end of
-the quarter.
+the semester.
 
 >> In your opinion, was this assignment, or any one of the three problems
 >> in it, too easy or too hard?  Did it take too long or too little time?
@@ -83,4 +82,3 @@ the quarter.
 >> students in future quarters?
 
 >> Any other comments?
-
