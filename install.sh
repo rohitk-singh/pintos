@@ -27,18 +27,6 @@ run () {
     printf "${YELLOW}Run the following command:${NC}\n"
     printf "source ~/.bashrc\n\n"
 
-    # Build pintos utils
-    printf  "Making Pintos utils ... "
-    pushd utils &> /dev/null
-    make > /dev/null
-    if [[ $? != 0 ]]; then
-        printf "${RED}failed!${NC}\n"
-        STATUS=1
-    else
-        printf "${GREEN}done.${NC}\n"
-    fi
-    popd &> /dev/null
-
     # Install QEMU
     which qemu &> /dev/null
     if [[ $? != 0 ]]; then
