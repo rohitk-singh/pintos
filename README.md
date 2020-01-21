@@ -111,21 +111,34 @@ Now, GDB is ready to debug. If the Pintos process ever hangs and you are unable 
 Project Submission
 ------------------
 
-Please read a little bit about [tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging) before starting.
+If you do not follow these steps *exactly*, you will break the grading script and lose 10 points on your lab.
 
-TODO: finish this section
 
-1. Create a new branch for this project. **If you have already created a branch for this project, omit the `-b` flag.**
+1. Create a new branch for this project. `project2` is for userprog, `project3` is for vm, and `project4` is for filesys. **If you have already created the `release/projectN` branch for this project, omit the `-b` flag.**
 ```bash
 $ git checkout -b release/project2
 ```
 
-2. Tag the commit that will act as your submission.
+2. Push the branch.
 ```bash
-$ git tag project2-submission
+$ git push origin release/project2
 ```
 
-3. Push the branch and the tag to your team's GitHub repo.
+The grading script relies on specific file paths to find the project directory. However, it is not flexible enough to find the correct directory if, for example, you have a "vm/Makefile" and a "temp-directory/vm/Makefile." Remove unnecessary code from your project or risk breaking the grading script.
+
+3. Tag the commit that will act as your submission.
 ```bash
-$ git push --all
+$ git tag -a project2-submission -m "project2-submission"
+```
+
+4. Push the tag.
+```bash
+$ git push origin project2-submission
+```
+
+5. Check that the tag and branch exist locally. You should also view your project's GitHub page and make sure it shows the tag and branch, too.
+```bash
+$ git checkout master
+$ git branch -va
+$ git tag -l
 ```
