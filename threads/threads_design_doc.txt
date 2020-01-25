@@ -1,16 +1,15 @@
-			+--------------------+
-			|        CS 140      |
-			| PROJECT 1: THREADS |
-			|   DESIGN DOCUMENT  |
-			+--------------------+
-				   
+                        +--------------------+
+                        |      EE 461S       |
+                        | PROJECT 1: THREADS |
+                        |   DESIGN DOCUMENT  |
+                        +--------------------+
+
 ---- GROUP ----
 
 >> Fill in the names and email addresses of your group members.
 
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
-FirstName LastName <email@domain.example>
+FirstName LastName <email@utexas.edu>
+FirstName LastName <email@utexas.edu>
 
 ---- PRELIMINARIES ----
 
@@ -21,8 +20,8 @@ FirstName LastName <email@domain.example>
 >> preparing your submission, other than the Pintos documentation, course
 >> text, lecture notes, and course staff.
 
-			     ALARM CLOCK
-			     ===========
+                             ALARM CLOCK
+                             ===========
 
 ---- DATA STRUCTURES ----
 
@@ -51,8 +50,8 @@ FirstName LastName <email@domain.example>
 >> A6: Why did you choose this design?  In what ways is it superior to
 >> another design you considered?
 
-			 PRIORITY SCHEDULING
-			 ===================
+                         PRIORITY SCHEDULING
+                         ===================
 
 ---- DATA STRUCTURES ----
 
@@ -86,8 +85,8 @@ FirstName LastName <email@domain.example>
 >> B7: Why did you choose this design?  In what ways is it superior to
 >> another design you considered?
 
-			  ADVANCED SCHEDULER
-			  ==================
+                          ADVANCED SCHEDULER
+                          ==================
 
 ---- DATA STRUCTURES ----
 
@@ -137,14 +136,14 @@ ticks   A   B   C   A   B   C   to run
 >> type and/or a set of functions or macros to manipulate fixed-point
 >> numbers, why did you do so?  If not, why not?
 
-			   SURVEY QUESTIONS
-			   ================
+                           SURVEY QUESTIONS
+                           ================
 
 Answering these questions is optional, but it will help us improve the
 course in future quarters.  Feel free to tell us anything you
-want--these questions are just to spur your thoughts.  You may also
+want -- these questions are just to spur your thoughts.  You may also
 choose to respond anonymously in the course evaluations at the end of
-the quarter.
+the semester.
 
 >> In your opinion, was this assignment, or any one of the three problems
 >> in it, too easy or too hard?  Did it take too long or too little time?
@@ -160,4 +159,3 @@ the quarter.
 >> students, either for future quarters or the remaining projects?
 
 >> Any other comments?
-
