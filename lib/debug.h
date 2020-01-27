@@ -14,11 +14,12 @@
 #define PANIC(...) debug_panic(__FILE__, __LINE__, __func__, __VA_ARGS__)
 
 void debug_panic(const char *file, int line, const char *function,
-                  const char *message, ...) PRINTF_FORMAT (4, 5) NO_RETURN;
+                 const char *message, ...) PRINTF_FORMAT (4, 5) NO_RETURN;
 
 void debug_backtrace(void);
 
 void debug_backtrace_all(void);
+
 #endif
 
 /* This is outside the header guard so that debug.h may be

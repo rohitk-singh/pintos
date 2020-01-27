@@ -38,4 +38,5 @@ bool intq_empty(const struct intq *);
 bool intq_full(const struct intq *);
 uint8_t intq_getc(struct intq *);
 void intq_putc(struct intq *, uint8_t);
+
 #endif /* devices/intq.h */

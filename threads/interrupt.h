@@ -11,10 +11,8 @@ enum intr_level {
 };
 
 enum intr_level intr_get_level(void);
-
 enum intr_level intr_set_level(enum intr_level);
 enum intr_level intr_enable(void);
-
 enum intr_level intr_disable(void);
 
 /* Interrupt stack frame. */
@@ -58,15 +56,11 @@ struct intr_frame {
 typedef void intr_handler_func (struct intr_frame *);
 
 void intr_init(void);
-
 void intr_register_ext(uint8_t vec, intr_handler_func *, const char *name);
-
-void intr_register_int(uint8_t vec, int dpl, enum intr_level, intr_handler_func *, const char *name);
-
+void intr_register_int(uint8_t vec, int dpl, enum intr_level,
+                       intr_handler_func *, const char *name);
 bool intr_context(void);
-
 void intr_yield_on_return(void);
-
 void intr_dump_frame(const struct intr_frame *);
 const char *intr_name(uint8_t vec);
 

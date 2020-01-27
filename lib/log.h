@@ -71,18 +71,18 @@ log_printf(void)
 #if LOGGING_ENABLE == 0 || LOGGING_LEVEL == 0
 #define log(LEVEL, fmt ...)
 #else
-#define log(LEVEL, fmt...) \
-        do { \
-            LoggingLevel level = LEVEL; \
-            if (LOGGING_LEVEL >= level) { \
-                snprintf((char *)&log_before_buf, LOG_MAX_BEFORE_SIZE, \
-                         "%s%-5s | %s:%d:%s() ", \
-                         log_level_color(level), log_level_name(level), \
-                         __FILE__, __LINE__, __func__); \
-                snprintf((char *)&log_buf, LOG_MAX_LOG_SIZE, fmt); \
-                log_printf(); \
-            } \
-        } while (0)
+#define log(LEVEL, fmt ...)                                         \
+    do {                                                            \
+        LoggingLevel level = LEVEL;                                 \
+        if (LOGGING_LEVEL >= level) {                               \
+            snprintf((char *)&log_before_buf, LOG_MAX_BEFORE_SIZE,  \
+                     "%s%-5s | %s:%d:%s() ",                        \
+                     log_level_color(level), log_level_name(level), \
+                     __FILE__, __LINE__, __func__);                 \
+            snprintf((char *)&log_buf, LOG_MAX_LOG_SIZE, fmt);      \
+            log_printf();                                           \
+        }                                                           \
+    } while (0)
 #endif
 
 #endif /* end __LOG_H__ */

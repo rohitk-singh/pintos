@@ -14,4 +14,5 @@
 #define ROUND_DOWN(X, STEP) ((X) / (STEP)*(STEP))
 
 /* There is no DIV_ROUND_DOWN.  It would be simply X / STEP. */
+
 #endif /* lib/round.h */

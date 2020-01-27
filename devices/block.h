@@ -44,9 +44,7 @@ const char *block_type_name(enum block_type);
 struct block *block_get_role(enum block_type);
 void block_set_role(enum block_type, struct block *);
 struct block *block_get_by_name(const char *name);
-
 struct block *block_first(void);
-
 struct block *block_next(struct block *);
 
 /* Block device operations. */
@@ -66,6 +64,8 @@ struct block_operations {
     void (*write) (void *aux, block_sector_t, const void *buffer);
 };
 
-struct block *block_register(const char *name, enum block_type, const char *extra_info, block_sector_t size, const struct block_operations *, void *aux);
+struct block *block_register(const char *name, enum block_type,
+                             const char *extra_info, block_sector_t size,
+                             const struct block_operations *, void *aux);
 
 #endif /* devices/block.h */
