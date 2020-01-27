@@ -46,6 +46,5 @@ typedef uint64_t uintmax_t;
 #define PTRDIFF_MIN INT32_MIN
 #define PTRDIFF_MAX INT32_MAX
 
-#define SIZE_MAX UINT32_MAX
-
+#define SIZE_MAX    UINT32_MAX
 #endif /* lib/stdint.h */
