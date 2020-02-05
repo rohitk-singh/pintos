@@ -21,13 +21,10 @@ $ brew install i386-elf-gcc i386-elf-binutils i386-elf-gdb qemu
 ```
 
 ### Setup
-Clone the starter code and change the remote to point to your team's repo.
+Follow the instructions from the TAs to set up your team on GitHub classroom. Then, clone your team's repository.
 
 ```bash
-$ git clone https://gitlab.com/tboehm/pintos
-$ git remote rm origin
-$ git remote add origin https://github.com/DrY-Courses/os-sp20-your-team-name.git
-$ git push --set-upstream origin master
+$ git clone https://github.com/DrY-Courses/os-sp20-team-name.git
 ```
 
 ### Install
