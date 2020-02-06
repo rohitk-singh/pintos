@@ -11,7 +11,7 @@ Pintos relies on some core utilities, a gcc that can compile for i386, the corre
 
 ```bash
 $ sudo apt update
-$ sudo apt install build-essential coreutils binutils gcc qemu
+$ sudo apt install build-essential coreutils binutils gcc qemu-system-x86
 ```
 
 On macOS using [Homebrew](https://brew.sh):

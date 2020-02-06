@@ -27,6 +27,8 @@ run () {
     printf "${YELLOW}Run the following command:${NC}\n"
     printf "source ~/.bashrc\n\n"
 
+    printf "${YELLOW}Then, re-run this script to make sure qemu is in your path.${NC}\n\n"
+
     # Install QEMU
     which qemu &> /dev/null
     if [[ $? != 0 ]]; then
@@ -46,6 +48,8 @@ run () {
 
     if [[ $STATUS != 0 ]]; then
         printf "${RED}Installation unsuccessful.${NC}\n"
+    else
+        printf "${GREEN}Installation successful.${NC}\n"
     fi
 
     return $STATUS
