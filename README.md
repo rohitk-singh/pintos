@@ -3,6 +3,10 @@ Pintos
 
 Pintos labs for EE 461S at UT Austin.
 
+### About
+
+[Pintos](https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html) is a simple operating system developed by Stanford. You will complete [project 2 (User Programs)](https://web.stanford.edu/class/cs140/projects/pintos/pintos_3.html#SEC32), [project 3 (Virtual Memory)](https://web.stanford.edu/class/cs140/projects/pintos/pintos_4.html#SEC53), and [project 4 (File Systems)](https://web.stanford.edu/class/cs140/projects/pintos/pintos_5.html#SEC75).
+
 Installation
 ------------
 
