@@ -20,8 +20,8 @@ FirstName LastName <email@utexas.edu>
 >> preparing your submission, other than the Pintos documentation, course
 >> text, lecture notes, and course staff.
 
-                         PAGE TABLE MANAGEMENT
-                         =====================
+                   SUPPLEMENTAL PAGE TABLE MANAGEMENT
+                   ==================================
 
 ---- DATA STRUCTURES ----
 
