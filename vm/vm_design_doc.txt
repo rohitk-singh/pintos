@@ -102,7 +102,7 @@ FirstName LastName <email@utexas.edu>
                            ================
 
 Answering these questions is optional, but it will help us improve the
-course in future quarters.  Feel free to tell us anything you
+course in future semesters.  Feel free to tell us anything you
 want -- these questions are just to spur your thoughts.  You may also
 choose to respond anonymously in the course evaluations at the end of
 the semester.
@@ -114,10 +114,10 @@ the semester.
 >> you greater insight into some aspect of OS design?
 
 >> Is there some particular fact or hint we should give students in
->> future quarters to help them solve the problems?  Conversely, did you
+>> future semesters to help them solve the problems?  Conversely, did you
 >> find any of our guidance to be misleading?
 
 >> Do you have any suggestions for the TAs to more effectively assist
->> students, either for future quarters or the remaining projects?
+>> students, either for future semesters or the remaining projects?
 
 >> Any other comments?
