@@ -31,8 +31,8 @@ FirstName LastName <email@utexas.edu>
 
 ---- ALGORITHMS ----
 
->> A2: In a few paragraphs, describe your code for locating the frame,
->> if any, that contains the data of a given page.
+>> A2: In a few paragraphs, describe your code for accessing the data
+>> stored in the SPT about a given page.
 
 ---- SYNCHRONIZATION ----
 
