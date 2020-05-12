@@ -1,6 +1,6 @@
                       +-------------------------+
                       |         EE 461S         |
-                      | PROJECT 2: FILE SYSTEMS |
+                      | PROJECT 4: FILE SYSTEMS |
                       |      DESIGN DOCUMENT    |
                       +-------------------------+
 
