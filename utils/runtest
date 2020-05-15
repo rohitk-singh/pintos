@@ -85,6 +85,20 @@ function test_path()
     printf "${INFO}Test:$NC $TEST_PATH\n"
 }
 
+# Get the persistence check command for a test
+#
+#  [in] $1 -- The path to a non-persistence test (from test_path)
+# [out] $PERSISTENCE -- The persistence check command, if any
+function persistence_ck()
+{
+    PERSISTENCE=
+    ptest="$1-persistence"
+    if [ -f "../../$ptest.ck" ]; then
+        PERSISTENCE="perl -I../.. ../../$ptest.ck $ptest $ptest.result"
+    fi
+    echo "$PERSISTENCE"
+}
+
 # Run a single test with the options from the command line
 #
 #  [in] $1 -- The the path to the test
@@ -106,6 +120,9 @@ function run_test()
     TEST_PATH=$1
     rm -f -v $TEST_PATH.{output,errors,result}
     COMMANDS=$(make --dry-run $TEST_PATH.result)
+    persistence_ck $TEST_PATH
+    COMMANDS+=$(printf '%b' "\n$PERSISTENCE")
+
     printf "${INFO}Commands:$NC $COMMANDS\n"
 
     while read -a line; do
