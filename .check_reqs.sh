@@ -3,7 +3,13 @@
 MACOS_TOOLCHAIN="\
 PROBLEM:
 Need i386 ELF GNU toolchain, GCC, and GDB on macOS.
-  $ brew install i386-elf-gcc i386-elf-gdb i386-elf-binutils
+  $ brew install x86_64-elf-gcc x86_64-elf-gdb x86_64-elf-binutils
+\n"
+
+MACOS_GSED="\
+PROBLEM:
+Need gsed on macOS.
+  $ brew install gnu-sed
 \n"
 
 LINUX_TOOLCHAIN="\
@@ -40,11 +46,16 @@ Need minimum of Perl 5.6.1.
 
     OS=$(uname -s)
     if [[ $OS = "Darwin" ]]; then
-        which i386-elf-gcc > /dev/null; GCC=$?
-        which i386-elf-gdb > /dev/null; GDB=$?
-        which i386-elf-objcopy > /dev/null; OBJCOPY=$?
+        which x86_64-elf-gcc > /dev/null; GCC=$?
+        which x86_64-elf-gdb > /dev/null; GDB=$?
+        which x86_64-elf-objcopy > /dev/null; OBJCOPY=$?
+        which gsed > /dev/null; GSED=$?;
         if [[ $GCC != 0 || $GDB != 0 || $OBJCOPY != 0 ]]; then
             printf "$MACOS_TOOLCHAIN"
+            STATUS=1
+        fi
+        if [[ $GSED != 0 ]]; then
+            printf "$MACOS_GSED"
             STATUS=1
         fi
     elif [[ $OS = "Linux" ]]; then

@@ -21,7 +21,7 @@ $ sudo apt install build-essential coreutils binutils gcc qemu-system-x86
 On macOS using [Homebrew](https://brew.sh):
 
 ```bash
-$ brew install i386-elf-gcc i386-elf-binutils i386-elf-gdb qemu
+$ brew install x86_64-elf-gcc x86_64-elf-binutils x86_64-elf-gdb qemu gnu-sed
 ```
 
 ### Setup
